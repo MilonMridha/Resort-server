@@ -68,7 +68,9 @@ async function run() {
 run().catch(console.dir);
 
 
-
+app.get('/order', (req,res)=>{
+    res.send('My order is here')
+})
 
 
 app.get('/', (req, res) => {
