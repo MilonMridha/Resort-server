@@ -21,6 +21,7 @@ async function run() {
     try {
         await client.connect();
         const resortCollection = client.db('Resorts').collection('Services');
+        const orderCollection = client.db('Resorts').collection('order');
 
         app.get('/service', async(req, res) => {
             const query = {};
@@ -41,14 +42,22 @@ async function run() {
             const newUser = req.body;
             const result = await resortCollection.insertOne(newUser);
             res.send(result);
-        })
+        });
         //Delete---------->
         app.delete('/service/:id', async(req, res)=>{
             const id = req.params.id;
             const query = {_id: ObjectId(id)}
             const result = await resortCollection.deleteOne(query);
             res.send(result);
+        });
+
+        //order collection Api-------->
+        app.post('/order', async(req, res)=>{
+            const newOrder = req.body;
+            const result = await orderCollection.insertOne(newOrder);
+            res.send(result);
         })
+
     
 
     }
